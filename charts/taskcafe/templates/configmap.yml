@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "taskcafe.fullname" . }}
+  labels:
+    {{- include "taskcafe.labels" . | nindent 4 }}
+data:
+  app.toml: |
+    [server]
+    hostname = '0.0.0.0:3333'
+
+    [email_notifications]
+    enabled = true
+    display_name = "No Reply"
+    from_address = "{{ .Values.smtp.fromAddress }}"
+
+    [storage]
+    storage_system = 'local_storage'
+    upload_dir_path = 'uploads'
+
+    [database]
+    host = '{{ include "taskcafe.postgresql.fullname" . }}'
+    name = '{{ .Values.postgresql.postgresqlDatabase }}'
+    user = 'postgres'
+    password = '{{ .Values.postgresql.postgresqlPassword }}'
+
+    [smtp]
+    username = '{{ .Values.smtp.username }}'
+    password = '{{ .Values.smtp.password }}'
+    from = '{{ .Values.smtp.fromAddress }}'
+    host = '{{ .Values.smtp.host }}'
+    port = {{ .Values.smtp.port }}
+    skip_verify = false
