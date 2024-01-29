@@ -1,0 +1,12 @@
+name: Release charts
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    uses: sanzenwin/workflows/.github/workflows/helm-charts-release.yml@main
+    permissions:
+      contents: write
+    secrets: inherit
