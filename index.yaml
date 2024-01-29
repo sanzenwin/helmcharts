@@ -1,0 +1,51 @@
+apiVersion: v1
+entries:
+  erpnext:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2024-01-29T02:15:19.042292494Z"
+    dependencies:
+    - name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.1.4
+    - name: erpnext
+      repository: https://helm.erpnext.com
+      version: 3.2.20
+    description: A Helm chart for Kubernetes
+    digest: edc5007874b52dd579f3ba2dab6956a88541591667c7a5215849b251920184de
+    name: erpnext
+    type: application
+    urls:
+    - https://github.com/sanzenwin/helmcharts/releases/download/erpnext-0.1.1/erpnext-0.1.1.tgz
+    version: 0.1.1
+  kanboard:
+  - apiVersion: v2
+    appVersion: v1.2.20
+    created: "2024-01-29T02:15:19.137848965Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.10
+    description: A Helm chart for Kubernetes
+    digest: ea4c3564c4c8fc42af8380b410d081952ea2f8ad21dc481f0a0c341c41d52855
+    name: kanboard
+    type: application
+    urls:
+    - https://github.com/sanzenwin/helmcharts/releases/download/kanboard-0.1.0/kanboard-0.1.0.tgz
+    version: 0.1.0
+  taskcafe:
+  - apiVersion: v2
+    appVersion: 0.3.2
+    created: "2024-01-29T02:15:19.231963068Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.10
+    description: A Helm chart for Kubernetes
+    digest: b480f4c3ed30fdc8f21f981e6487b6817a1917b3082a7e35ffe18f0f922aaa16
+    name: taskcafe
+    type: application
+    urls:
+    - https://github.com/sanzenwin/helmcharts/releases/download/taskcafe-0.1.0/taskcafe-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-01-29T02:15:19.231972435Z"
