@@ -1,4 +1,4 @@
-name: Test pages
+name: Pages
 on:
   push:
     tags:
