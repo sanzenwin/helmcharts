@@ -1,0 +1,39 @@
+name: Test pages
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - env:
+          GITHUB__HELM_REGISTRY: https://github.com/sanzenwin/helmcharts.git:/charts
+          GITHUB__HELM_EMAIL: "$GITHUB_ACTOR@users.noreply.github.com"
+          GITHUB__HELM_USERNAME: "${{ github.repository_owner }}"
+          GITHUB__HELM_PASSWORD: "${{ secrets.API_TOKEN_GITHUB }}"
+        run: |
+          pip install dekshell dekartifacts
+          dekartifacts helm login
+          dekartifacts helm build https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/} ./.out --dir ./charts --path ./charts.yaml
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./.out
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

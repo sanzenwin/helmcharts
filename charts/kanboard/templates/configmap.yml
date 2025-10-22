@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kanboard.fullname" . }}
+  labels:
+    {{- include "kanboard.labels" . | nindent 4 }}
+data:
+  config.php: |-
+    <?php
+
+    define('DB_DRIVER', 'postgres');
+    define('DB_USERNAME', 'postgres');
+    define('DB_PASSWORD', '{{ .Values.postgresql.postgresqlPassword }}');
+    define('DB_HOSTNAME', '{{ include "kanboard.postgresql.fullname" . }}');
+    define('DB_NAME', '{{ .Values.postgresql.postgresqlDatabase }}');
+
+    define('MAIL_SMTP_HOSTNAME', '{{ .Values.smtp.host }}');
+    define('MAIL_SMTP_PORT', {{ .Values.smtp.port }});
+    define('MAIL_SMTP_USERNAME', '{{ .Values.smtp.username }}');
+    define('MAIL_SMTP_PASSWORD', '{{ .Values.smtp.password }}');
+    define('MAIL_SMTP_HELO_NAME', null); // valid: null (default), or FQDN
+    define('MAIL_SMTP_ENCRYPTION', 'ssl'); // Valid values are null (not a string "null"), "ssl" or "tls"
+
+    define('PLUGIN_INSTALLER', true);
