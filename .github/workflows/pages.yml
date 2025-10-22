@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: pip install dekshell dekartifacts
       - env:
           GITHUB__HELM_REGISTRY: https://github.com/sanzenwin/helmcharts.git:/charts
           GITHUB__HELM_EMAIL: "$GITHUB_ACTOR@users.noreply.github.com"
           GITHUB__HELM_USERNAME: "${{ github.repository_owner }}"
           GITHUB__HELM_PASSWORD: "${{ secrets.API_TOKEN_GITHUB }}"
         run: |
-          pip install dekshell dekartifacts
           dekartifacts helm login
           dekartifacts helm build https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/} ./.out --dir ./charts --path ./charts.yaml
       - name: Upload static files as artifact
